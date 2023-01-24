@@ -16,8 +16,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install tesseract-ocr libtesseract-dev
+          sudo apt-get update
+          sudo apt-get install tesseract-ocr libtesseract-dev
 
       - name: Copy binaries
         run: |
