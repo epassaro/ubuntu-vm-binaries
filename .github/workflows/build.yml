@@ -18,7 +18,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install tesseract-ocr libtesseract-dev \
-                libleptonica-dev libtiff-dev libjbig-dev
+                libleptonica-dev libtiff-dev libjbig-dev \
+                libdeflate-dev
 
       - name: Copy binaries
         run: |
@@ -28,6 +29,7 @@ jobs:
           cp /usr/lib/x86_64-linux-gnu/liblept.so ./liblept.so.5
           cp /usr/lib/x86_64-linux-gnu/libtiff.so ./libtiff.so.5
           cp /usr/lib/x86_64-linux-gnu/libjbig.so ./libjbig.so.0
+          cp /usr/lib/x86_64-linux-gnu/libdeflate.so ./libdeflate.so.0
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
