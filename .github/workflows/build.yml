@@ -17,16 +17,23 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install tesseract-ocr libtesseract-dev
+          sudo apt-get install tesseract-ocr libtesseract-dev libleptonica-dev
 
       - name: Copy binaries
         run: |
           mkdir tesseract-bin
           cp /usr/bin/tesseract tesseract-bin
           cp /usr/lib/x86_64-linux-gnu/libtesseract.so tesseract-bin
+          cp /usr/lib/x86_64-linux-gnu/liblept.so tesseract-bin
+      
+      - name: Create softlinks
+        run: |
+          cd tesseract-bin
+          ln -s libtesseract.so libtesseract.so.4
+          ln -s liblept.so liblept.so.5
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: tesseract-bin
           path: tesseract-bin
