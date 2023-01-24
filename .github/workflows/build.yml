@@ -1,0 +1,32 @@
+name: build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install tesseract-ocr libtesseract-dev
+
+      - name: Copy binaries
+        run: |
+          mkdir tesseract-bin
+          cp /usr/bin/tesseract tesseract-bin
+          cp /usr/lib/x86_64-linux-gnu/libtesseract.so tesseract-bin
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: tesseract-bin
